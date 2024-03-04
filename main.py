@@ -3,7 +3,7 @@ from pyon import pyon
 def main():
 	print('Running...\n')
 	doc = pyon('doc.pyon')
-	doc.write('None pwnd:')
+
 	# reconstruction tests
 	"""
 	reconstructed_file = ''
@@ -42,6 +42,11 @@ def main():
 	doc.append('[7, 8]')
 	doc.numbers.append('"hi"')
 	doc.numbers.append('')
+	"""
+
+	"""
+	doc.write('list u_got:')
+	doc.append('"pwnd"')
 	"""
 
 if __name__ == '__main__': main()
