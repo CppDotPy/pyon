@@ -23,7 +23,7 @@ class private:
 			line_data.append(self.type)
 			line_data.append(self.child_indent)
 			line_data.append(self.content)
-			return f'{line_data}'
+			return f'"{line_data}"'
 
 		def __add__(self, value): self.append(str(value))
 
@@ -53,6 +53,7 @@ class private:
 				file.write(block)
 				file.write(tail)
 
+			source.variables = []
 			with open(source.source, 'r') as file:
 				source.lines = file.readlines()
 			source.create_line_objects()
@@ -86,6 +87,7 @@ class private:
 				file.write(f'{leading_whitespace}{string}')
 				file.write(tail)
 
+			source.variables = []
 			with open(source.source, 'r') as file:
 				source.lines = file.readlines()
 			source.create_line_objects()
@@ -133,14 +135,15 @@ class pyon:
 	def __init__(self, source):
 
 		self.source = source
+		self.initialise(source)
+
+	def initialise(self, source):
+
 		self.variables = []
 		with open(source, 'r') as file:
 			self.lines = file.readlines()
-
-		# Declaritive Start
 		self.create_line_objects()
 		self.assign_object_values()
-		# Declaritive End
 
 	def __repr__(self): return f'{self.lines}'
 
@@ -384,8 +387,9 @@ class pyon:
 
 		if is_assignment == False:
 
-			opener = case[new_line.parent.type][case_opener]
-			closer = case[new_line.parent.type][case_closer]
+			line_type = f'{new_line.parent.type}'.split()[-1].strip('>').strip("'")
+			opener = case[line_type][case_opener]
+			closer = case[line_type][case_closer]
 
 			exec(f'parent.content += {opener}{content}{closer}')
 			parent.lines.append(new_line)
@@ -399,4 +403,5 @@ class pyon:
 		if string != '' and string[-1] != ':': problem = True
 		if problem: raise SyntaxError('Write requires argument to declare a variable')
 
-		with open(self.source, 'w') as file: file.write(string)
+		with open(self.source, 'w') as file: file.write(string + '\n')
+		self.initialise(self.source)
