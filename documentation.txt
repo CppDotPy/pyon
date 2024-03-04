@@ -86,7 +86,7 @@ this means the line object can be retrieved like so:
 
 >>> print(line5)
 
-and the line itself can be retrieved like so:
+and the line's content can be retrieved like so:
 
 >>> print(line5.content)
 
@@ -95,15 +95,7 @@ without any leading whitespace or ending ':'
 
 to properly reconstruct the line, use:
 
->>> leading_whitespace = '\t' * line5.indent_level
->>> content = line5.content
->>>
->>> if line.is_assignment:
->>>	ending = ':'
->>>	content = f'{line5.type} {content}'
->>> else: ending = ''
->>>
->>> print(f'{leading_whitespace}{content}{ending}\n') 
+>>> print(line5.reconstruct())
 
 
 
