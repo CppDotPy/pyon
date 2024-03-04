@@ -1,0 +1,28 @@
+list numbers:
+	"one"
+	"two"
+	list super:
+		1
+		"1"
+		"2"
+		list sub:
+			"won"
+			"too"
+		list marine:
+			["want", "to"]
+		3
+
+list second:
+	"lol"
+	"uwu"
+	["test", "123"]
+	{"key": "value"}
+	numbers	
+
+int intagers:
+	1
+	2
+	int this:
+		3
+	float that:
+		4
